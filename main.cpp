@@ -8,20 +8,19 @@ void decryptLetters(char* input, int keyNumber);
 
 int main()
 {
-char inputWords[40];
+char inputWords[1000];
 int enterNumb = 0;
 
-for (;;){
-    printf("Input words...and input Number of code(decode)...: ");
-    scanf("%s %d", inputWords, &enterNumb);
-
+    for (;;){
+        memset(inputWords,0,sizeof(inputWords));
+        printf("Input words...and input Number of code(decode)...: ");
+        scanf("%s %d", inputWords, &enterNumb);
         // code letters in word
         encryptLetters(inputWords, enterNumb);
         // decode letters in word
         decryptLetters(inputWords, enterNumb);
     continue;
     }
-
 }
 
 void encryptLetters(char input[], int keyNumber){
@@ -52,15 +51,10 @@ void decryptLetters(char* input, int keyNumber){
     for (i = 0; i < strlen(input); i++){
         if (islower(input[i])){
             countWordsAscii = int(input[i])-int('a');
-            if (countWordsAscii >= keyNumber){
-                input[i] = (input[i] - 'a' - keyNumber) % 26;
+                input[i] = (input[i] - 'a' - keyNumber + 26 ) %26 ;
                 input[i] = input[i] + 'a';
-            } else {
-                input[i] = abs((input[i] - 'a' - keyNumber)) % 26;
-                input[i] = input[i] + 'a';
-            }
         } else {
-            input[i] = (input[i] - 'A' - keyNumber) % 26;
+            input[i] = (input[i] - 'A' - keyNumber + 26) % 26;
             input[i] = input[i] + 'A';
         }
     }
